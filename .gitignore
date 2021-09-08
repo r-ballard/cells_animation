@@ -10,3 +10,4 @@ application.macosx
 out
 ffmpeg*
 ffmpeg-audio*
+paths.txt

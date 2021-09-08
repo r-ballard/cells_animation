@@ -17,8 +17,9 @@ FFT fft;
 
 
 //input path to song (audio
-//String song_path = "SONG PATH";, replace with path to .wav
-String song_path = "SONG PATH";
+//Song path is listed in pathsFile which is in gitignore
+String[] pathsFile;
+String song_path;
 
 
 //separator for input text file
@@ -32,7 +33,7 @@ BufferedReader reader;
 
 //TODO modify this to take 5 frame rolling average or something similar
 // Variables which define the "zones" of the spectrum
-// For example, for bass, we only take the first 4% of the total spectrum
+// For example, for bass, we only take the first 33% of the total spectrum
 float specLow = 0.03; // 3%
 float specMid = 0.125;  // 12.5%
 float specHi = 0.20;   // 20%
@@ -50,6 +51,12 @@ float oldScoreHi = scoreHi;
 // Softening value
 float scoreDecreaseRate = 25;
 
+//Creating window arrays
+float[] scoreLowWindow;
+float[] scoreMedWindow;
+float[] scoreHiWindow;
+
+
 List<Vec2D> points;
 int veclength;
 java.util.Random rnd;
@@ -61,6 +68,8 @@ float scaleY = 10.0;
 
 
 void setup() {
+  pathsFile = loadStrings("paths.txt");
+  song_path = pathsFile[0];
   size(800, 600);
   noFill();
   points = new ArrayList<Vec2D>();
